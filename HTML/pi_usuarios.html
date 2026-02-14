@@ -1,0 +1,65 @@
+<img width="500" src="./imagens/introusuario.jpg" />
+
+
+<h1> Usuários </h1>
+<form onsubmit="salvar(event)">
+
+    <label>
+        Digite o nome:
+        <Input class="inputNome" size="50" />
+    </label>
+
+    <br /> <br />
+
+    <label>
+        Digite o E-mail:
+        <Input class="inputEmail" type="email" size="49" />
+    </label>
+
+    <br /><br />
+
+    <label>
+        Digite a senha:
+        <Input class="inputSenha" type="password" size="6" />
+    </label>
+
+    <br /><br />
+    <button type="submit"> Salvar </button>
+    <button type="reset"> Cancelar </button>
+
+
+</form>
+
+<H2> Usuários cadastrados </H2>
+
+<table border class="tabelaListagem">
+    <tr>
+        <td>Nome </td>
+        <td>email</td>
+        <td>senha</td>
+    </tr>
+
+</table>
+
+<script>
+
+    function salvar(e) {
+
+        e.preventDefault()
+
+        let nome = document.querySelector(".inputNome").value
+        let email = document.querySelector(".inputEmail").value
+        let senha = document.querySelector(".inputSenha").value
+
+
+        let conteudo = `<tr>
+        <td> ${nome}</td>
+        <td>${email}</td>
+        <td> ${senha} </td> 
+        </tr>`
+
+        document.querySelector(".tabelaListagem").innerHTML += conteudo
+
+    }
+
+</script>

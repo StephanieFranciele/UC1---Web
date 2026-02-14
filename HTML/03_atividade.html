@@ -1,0 +1,61 @@
+<h1> 03 Atividade </h1>
+
+<hr />
+<form onsubmit="Cadastrar">
+
+    <p> Digite seu nome: </p>
+    <input minlength="3" required class="inputNome" />
+
+        <p> Email: </p>
+    <input class="inputEmail"()type="email" />
+
+    <p> Idade: </p>
+    <input type="number"() required class="inputIdade" />
+
+    <p> Data de Nascimento: </p>
+    <input type="date" () required class="inputNascimento" />
+
+    <p> Telefone: </p>
+    <input type="tel" () required class="inputTelefone" />
+
+    <p> Estado: </p>
+    
+    
+       <label> </label>
+
+    <select id="Estado" name="Estado"   class="inputEstado">
+        <option value="Outros">Outros</option>
+        <option value="São Paulo"> São Paulo </option>
+        <option value="Alagoas ">Alagoas</option>
+        <option value="Minas Gerais">Minas Gerais</option>
+        <option value="Espirito Santo">Espirito Santo</option>
+        
+    </select>
+
+    <p> Observações: </p>
+    <textarea name=" Observações" id="Observações"></textarea>
+
+
+    <br /> <br />
+    <button> Cadastrar </button>
+
+</form>
+
+<script>
+
+    let nome = document.querySelector(".inputNome").value
+    let email = document.querySelector(".inputEmail").value
+    let idade = document.querySelector(".inputIdade").value
+    let nascimento = document.querySelector(".inputNascimento").value
+    let telefone  = document.querySelector(".inputTelefone").value
+    let estado = document.querySelector(".inputEstado").value
+
+     
+        alert (`Seja Bem-vinda(o), ${nome}``Seu email é: ${email}``Sua idade é:  ${idade}`)
+        alert (`Seu email é: ${email}`)
+        alert (`Sua idade é:  ${idade}`)
+        alert (`Data de Nascimento:  ${nascimento}`)
+        alert (`Telefone:  ${telefone}`)
+        alert (`Estado ${estado}`)
+
+</script>

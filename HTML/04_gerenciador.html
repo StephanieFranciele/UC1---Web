@@ -1,0 +1,93 @@
+<!--C: Create criar
+R: Read ler
+U: Update modificar
+D: Delete apagar-->
+
+
+<!--Placeholder - inserir sugestão nos campos-->
+
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+
+<h1>Gerenciador de usuários</h1>
+<p> Encontre os usuários cadastrados, crie um novo, altere ou remova.</p>
+
+<h2> Cadastrar </h2>
+
+<form onsubmit="salvar(event)" >
+
+     <label>
+        Digite o nome:
+        <Input class="inputNome" placeholder="Digite seu nome aqui"   size="50"/>
+     </label>
+       
+     <br/> <br/>
+
+      <label>
+        Digite o E-mail:
+        <Input class="inputEmail" placeholder="Seu email, não esqueça o @" type="email" size="50"/>
+     </label>
+
+     <br/><br/>
+
+     <label>
+        Digite a senha:
+        <Input class="inputSenha" placeholder="Digite a senha, ela é segredo haha" type="password" size="50"/>
+     </label>
+
+     <br/><br/>
+     <button type="submit" > Salvar </button>
+     <button type="reset" > Cancelar </button>
+    
+    
+</form>
+
+<H2> Listagem  </H2>
+
+<table border  class="tabelaListagem">
+
+<tr>
+<td>Nome </td>
+<td>email</td>
+<td>senha</td> 
+</tr>
+
+</table>
+
+<script>
+
+function salvar(e){
+
+e.preventDefault()
+
+let nome = document.querySelector(".inputNome").value
+let email = document.querySelector(".inputEmail").value
+let senha = document.querySelector(".inputSenha").value
+
+//Concatenação -> alert ("Nome"+nome+"Email".....)
+
+//alert(`Nome: ${nome},\n Email: ${email} \n Senha: ${senha}`)
+
+//Interpolação é a belezinha de sima com cifrão e crase
+
+let conteudo = `<tr>
+<td> ${nome} </td>
+<td>${email}</td>
+<td> ${senha} </td> 
+</tr>`
+
+document.querySelector(".tabelaListagem").innerHTML += conteudo
+
+}
+
+</script>
+
+</body>
+</html>

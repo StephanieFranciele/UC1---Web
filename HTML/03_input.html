@@ -1,0 +1,65 @@
+<h1> Inputs</h1>
+<p> Como criar campos de interação com o usuário.</p>
+<hr />
+<form onsubmit="Cadastrar">
+
+    <p> Digite seu nome: </p>
+    <input minlength="3" required class="inputNome" />
+
+    <!-- <p> Digite sua senha: </p>
+    <input type="password" required class="inputSenha" /> -->
+
+    <p> Email: </p>
+    <input class="inputEmail" type="email" />
+
+    <p> Idade: </p>
+    <input type="number" required class="inputIdade" />
+
+    <p> Data de Nascimento: </p>
+    <input type="date" required class="inputNascimento" />
+
+    <p> Telefone: </p>
+    <input type="tel" required class="inputTelefone" />
+
+    <p> Estado: </p>
+    
+    
+       <label> </label>
+
+    <select id="Estado" name="Estado"   class="inputEstado">
+        <option value="Outros">Outros</option>
+        <option value="São Paulo"> São Paulo </option>
+        <option value="Alagoas ">Alagoas</option>
+        <option value="Minas Gerais">Minas Gerais</option>
+        <option value="Espirito Santo">Espirito Santo</option>
+        
+    </select>
+
+    <p> Observações: </p>
+    <textarea name=" Observações" id="Observações"></textarea>
+
+    
+
+    <br /> <br />
+    <button> Cadastrar </button>
+
+</form>
+
+<script>
+
+    function cadastrar() {
+        let nome = document.querySelector(".inputNome").value
+        alert(`Seja Bem-vinda(o), ${nome}`)
+
+        let senha = document.querySelector(".inputSenha").value
+
+        if (senha == "123") {
+            alert(`Senha cadastrada com sucesso`)
+
+        } else {
+            alert("Senha inválida")
+        }
+    }
+
+
+</script>
