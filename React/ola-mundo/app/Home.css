@@ -1,0 +1,12 @@
+body{
+    background-color: black;
+    color: #fff;
+    font-family: Arial;
+}
+
+.titulo{
+    color: aquamarine;
+    text-align: center;
+    font-size: 22px;
+
+}
