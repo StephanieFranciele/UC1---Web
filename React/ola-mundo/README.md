@@ -14,5 +14,18 @@ Depois de baixado, se quiser, faça a limpeza dos arquivos padrão que vem no pr
 Por fim, para **iniciar** (rodar) um projeto em React, rodar no terminal o compando ``` npm run dev```
 *Nota: tenha certeza de rodar esse comando na pasta raiz do projeto*
 
+## Como criar um módulo/ Componente em React
+Sempre que for criar um módulo ou um componente use essa estrutura:
+```
+export default function Produtos() {
+    return (
+        <div>
+           
+            
+        </div>
+    )
+}
+
+```
 
 
