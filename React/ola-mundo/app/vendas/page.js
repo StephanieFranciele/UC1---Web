@@ -11,10 +11,13 @@ function Vendas() {
     const [livro, alteraLivro] = useState()
     const [quantidade, alteraQuantidade] = useState()
     const [pagamento, alteraPagamento] = useState()
+    const [observacao, alteraObservacao] = useState()
 
     const [listavendas, alteraListaVendas] = useState([])
     const [listausuarios, alteraListaUsuarios] = useState([])
     const [listalivros, alteraListaLivros] = useState([])
+
+    const [inputPesquisaPagamento, alteraInputPesquisaPagamento] = useState()
 
     async function buscaUsuarios() {
 
@@ -50,16 +53,12 @@ function Vendas() {
     async function Excluir(id) {
 
         const opcao = confirm("Tem certeza que deseja excluir?")
-       if(opcao == false){
-        return
-       }
-       const response = await supabase.from ('vendas').delete().eq('id',id)
+        if (opcao == false) {
+            return
+        }
+        const response = await supabase.from('vendas').delete().eq('id', id)
 
     }
-
-
-
-
 
     function formataData(data) {
         let data_formatada = new Date(data)
@@ -98,6 +97,7 @@ function Vendas() {
             id_livro: livro,
             quantidade: quantidade,
             pagamento: pagamento,
+            observacao: observacao
         }
         console.log(objeto)
 
@@ -105,6 +105,37 @@ function Vendas() {
         console.log(error)
     }
 
+    //funções de pesquisa
+    async function pesquisaPagamento() {
+        const { data, error } = await supabase
+            .from('vendas')
+            .select()
+            .eq('pagamento', inputPesquisaPagamento)
+        alteraListaVendas(data)
+    }
+    async function pesquisaObservacao() {
+
+    }
+    async function pesquisaData() {
+         const { data, error } = await supabase
+            .from('vendas')
+            .select()
+            .eq('created_at', )
+        alteraListaVendas(data)
+
+    }
+    async function pesquisaIdUsuario() {
+
+    }
+    async function pesquisaIdProduto() {
+
+    }
+    async function pesquisaMaiorVendas() {
+
+    }
+    async function pesquisaVendasHoje() {
+
+    }
 
 
     useEffect(() => {
@@ -156,6 +187,15 @@ function Vendas() {
 
             <hr></hr>
 
+            <h2>Filtro</h2>
+            <p>Pesquisa pagamento<input onChange={e=> alteraInputPesquisaPagamento(e.target.value)}/><button onClick={pesquisaPagamento}> Pesquisar </button></p>
+            <p>Pesquisa observacao<input /><button onClick={pesquisaObservacao}> Pesquisar </button></p>
+            <p>Pesquisa data <input type="date" /> <button onClick={pesquisaData}> Pesquisar </button></p>
+            <p>Pesquisa pelo ID do usuario<input /><button onClick={pesquisaIdUsuario}> Pesquisar </button></p>
+            <p>Pesquisa pelo ID do produto<input /><button onClick={pesquisaIdProduto}> Pesquisar </button></p>
+            <p>Filtrar por maiores vendas<button onClick={pesquisaMaiorVendas}> Pesquisar </button></p>
+            <p>Ver vendas de hoje<button onClick={pesquisaVendasHoje}> Pesquisar </button></p>
+
             <table class="table table-hover ">
                 <tr>
                     <td>#</td>
@@ -164,6 +204,7 @@ function Vendas() {
                     <td>Quantidade</td>
                     <td>Forma de pagamento</td>
                     <td>Data</td>
+                    <td>Observação</td>
                     <td>Ações</td>
                 </tr>
 
@@ -179,7 +220,8 @@ function Vendas() {
                                 <td onClick={() => location.href = "/vendas/" + item.id}> {item.quantidade}</td>
                                 <td onClick={() => location.href = "/vendas/" + item.id}>{formataPagamento(item.pagamento)}</td>
                                 <td onClick={() => location.href = "/vendas/" + item.id}>{formataData(item.created_at)} às {formataHoras(item.created_at)}</td>
-                                <td> <button onClick={()=> location.href="/vendas/"+item.id}> ver</button><button onClick={()=> Excluir(item.id)}> EXCLUIR </button></td>
+                                <td onClick={() => location.href = "/vendas/" + item.id}>{item.observacao}</td>
+                                <td> <button onClick={() => location.href = "/vendas/" + item.id}> ver</button><button onClick={() => Excluir(item.id)}> EXCLUIR </button></td>
 
                             </tr>
                         )
