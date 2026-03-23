@@ -122,14 +122,15 @@ function Vendas() {
             .from('vendas')
             .select('*, id_usuario(*), id_livro(*)')
             .ilike('observacao', '%' + inputPesquisaObservacao + '%')
-        
+         alteraListaVendas(data)
 
     }
     async function pesquisaData() {
         const { data, error } = await supabase
             .from('vendas')
-            .select()
-            .eq('created_at',)
+            .select('*, id_usuario(*), id_livro(*)')
+            .gt('created_at',inputPesquisaData+"00:00:00+00")
+            .lt('created_at',inputPesquisaData+"23:59:00+00")
         alteraListaVendas(data)
 
     }
@@ -141,9 +142,22 @@ function Vendas() {
 
     }
     async function pesquisaMaiorVendas() {
+        const { data, error } = await supabase
+            .from('vendas')
+            .select('*, id_usuario(*), id_livro(*)')
+            .order ('quantidade', {ascending:false})
+            .limit(1)
+        alteraListaVendas(data)
 
     }
     async function pesquisaVendasHoje() {
+         const { data, error } = await supabase
+            .from('vendas')
+            .select('*, id_usuario(*), id_livro(*)')
+            .gt('created_at',new data().toISOString().split("T")+"00:00:00+00")
+            .lt('created_at',inputPesquisaData+"23:59:00+00")
+        alteraListaVendas(data)
+
 
     }
 
