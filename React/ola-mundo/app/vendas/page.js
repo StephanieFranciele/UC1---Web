@@ -13,6 +13,9 @@ function Vendas() {
     const [pagamento, alteraPagamento] = useState()
     const [observacao, alteraObservacao] = useState()
 
+    const [editando, alteraEditando] = useState(false)
+    
+
     const [listavendas, alteraListaVendas] = useState([])
     const [listausuarios, alteraListaUsuarios] = useState([])
     const [listalivros, alteraListaLivros] = useState([])
@@ -51,6 +54,20 @@ function Vendas() {
 
         console.log(data)
         alteraListaVendas(data)
+
+    }
+
+    function Editar(objeto) {
+        alteraQuantidade(objeto.quantidade)
+        alteraPagamento(objeto.pagamento)
+        alteraEditando(true)
+
+    }
+
+      function CancelaEdição(Objeto) {
+        alteraQuantidade("")
+        alteraPagamento("")
+        alteraEditando(false)
 
     }
 
@@ -122,20 +139,20 @@ function Vendas() {
             .from('vendas')
             .select('*, id_usuario(*), id_livro(*)')
             .ilike('observacao', '%' + inputPesquisaObservacao + '%')
-         alteraListaVendas(data)
+        alteraListaVendas(data)
 
     }
     async function pesquisaData() {
         const { data, error } = await supabase
             .from('vendas')
             .select('*, id_usuario(*), id_livro(*)')
-            .gt('created_at',inputPesquisaData+"00:00:00+00")
-            .lt('created_at',inputPesquisaData+"23:59:00+00")
+            .gt('created_at', inputPesquisaData + "00:00:00+00")
+            .lt('created_at', inputPesquisaData + "23:59:00+00")
         alteraListaVendas(data)
 
     }
     async function pesquisaIdUsuario() {
-        
+
 
     }
     async function pesquisaIdProduto() {
@@ -145,17 +162,17 @@ function Vendas() {
         const { data, error } = await supabase
             .from('vendas')
             .select('*, id_usuario(*), id_livro(*)')
-            .order ('quantidade', {ascending:false})
+            .order('quantidade', { ascending: false })
             .limit(1)
         alteraListaVendas(data)
 
     }
     async function pesquisaVendasHoje() {
-         const { data, error } = await supabase
+        const { data, error } = await supabase
             .from('vendas')
             .select('*, id_usuario(*), id_livro(*)')
-            .gt('created_at',new data().toISOString().split("T")+"00:00:00+00")
-            .lt('created_at',inputPesquisaData+"23:59:00+00")
+            .gt('created_at', new data().toISOString().split("T") + "00:00:00+00")
+            .lt('created_at', inputPesquisaData + "23:59:00+00")
         alteraListaVendas(data)
 
 
@@ -181,7 +198,7 @@ function Vendas() {
 
             <form onSubmit={salvar}>
                 <p>Selecione o usuário</p>
-                <select onChange={e => alteraUsuario(e.target.value)}>
+                <select disabled={editando} onChange={e => alteraUsuario(e.target.value)}>
                     <option> Selecione... </option>
                     {
                         listausuarios.map(
@@ -191,7 +208,7 @@ function Vendas() {
                 </select>
                 <p>Selecione o Livro</p>
 
-                <select onChange={e => alteraLivro(e.target.value)}>
+                <select disabled={editando} onChange={e => alteraLivro(e.target.value)}>
                     {
                         listalivros.map(
                             item => <option value={item.id}>{item.nome}</option>
@@ -200,12 +217,28 @@ function Vendas() {
                 </select>
 
                 <p>Digite a quantidade</p>
-                <input onChange={e => alteraQuantidade(e.target.value)} />
+                <input value={quantidade} onChange={e => alteraQuantidade(e.target.value)} />
                 <p>Digite o pagamento</p>
-                <input onChange={e => alteraPagamento(e.target.value)} />
+                <input value={pagamento} onChange={e => alteraPagamento(e.target.value)} />
                 <br></br>
                 <br></br>
-                <button onClick={() => buscaTodos}>Salvar</button>
+
+                {
+                    editando == true ?
+                        <div>
+                            <button> Atualizar </button>
+                            <button onClick={() => alteraEditando}> Cancelar </button>
+                        </div>
+                        :
+
+                        <button onClick={() => buscaTodos}>Salvar</button>
+
+
+
+                }
+
+
+
 
             </form>
 
@@ -245,7 +278,8 @@ function Vendas() {
                                 <td onClick={() => location.href = "/vendas/" + item.id}>{formataPagamento(item.pagamento)}</td>
                                 <td onClick={() => location.href = "/vendas/" + item.id}>{formataData(item.created_at)} às {formataHoras(item.created_at)}</td>
                                 <td onClick={() => location.href = "/vendas/" + item.id}>{item.observacao}</td>
-                                <td> <button onClick={() => location.href = "/vendas/" + item.id}> ver</button><button onClick={() => Excluir(item.id)}> EXCLUIR </button></td>
+                                <td>  <button onClick={() => Editar(item)}> Editar</button></td>
+                                <td> <button onClick={() => location.href = "/vendas/" + item.id}> {() => Excluir(item.id)} EXCLUIR </button></td>
 
                             </tr>
                         )
