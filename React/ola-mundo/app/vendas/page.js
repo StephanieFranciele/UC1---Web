@@ -178,6 +178,16 @@ function Vendas() {
 
     }
 
+     async function Excluir(id) {
+
+        const opcao = confirm("Tem certeza que deseja excluir?")
+        if (opcao == false) {
+            return
+        }
+        const response = await supabase.from('usuarios').delete().eq('id', id)
+
+    }
+
 
     useEffect(() => {
         buscaTodos();
